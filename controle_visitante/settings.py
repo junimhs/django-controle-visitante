@@ -41,7 +41,8 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'users',
-    'gatekeepers'
+    'gatekeepers',
+    'visitors'
 ]
 
 MIDDLEWARE = [
