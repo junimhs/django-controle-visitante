@@ -47,6 +47,7 @@ INSTALLED_APPS += [
     'users',
     'gatekeepers',
     'visitors',
+    'dashboard'
 ]
 
 MIDDLEWARE = [
