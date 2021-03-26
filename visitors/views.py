@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from visitors.models import Visitor
+from django.contrib.auth.decorators import login_required
 from .forms import (
     VisitorForm,
     AuthorizationVisitorForm
@@ -12,6 +13,7 @@ from django.utils import timezone
 # Create your views here.
 
 
+@login_required()
 def register_visitor(request):
     form = VisitorForm()
 
@@ -33,6 +35,7 @@ def register_visitor(request):
     return render(request, 'register_visitor.html', context)
 
 
+@login_required()
 def get_visitor(request, id):
     visitor = get_object_or_404(
         Visitor,
@@ -64,6 +67,7 @@ def get_visitor(request, id):
     return render(request, 'get_visitor.html', context)
 
 
+@login_required()
 def finish_visitor(request, id):
     visitor = get_object_or_404(
         Visitor,
