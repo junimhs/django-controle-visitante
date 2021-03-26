@@ -3,6 +3,13 @@ from django.utils.translation import gettext as _
 
 
 class Visitor(models.Model):
+
+    STATUS_VISITOR = [
+        ("AGUARDANDO", "Aguardando autorização"),
+        ("EM_VISITA", "Em visita"),
+        ("FINALIZADO", "Visita finalizada"),
+    ]
+
     name = models.CharField(
         verbose_name="Nome completo",
         max_length=194
@@ -52,6 +59,46 @@ class Visitor(models.Model):
         verbose_name="Porteiro responsável pelo registro",
         on_delete=models.PROTECT
     )
+
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_VISITOR,
+        default="AGUARDANDO"
+    )
+
+    def get_departure_time(self):
+        if self.departure_time:
+            return self.departure_time
+        return "Horário de saida não registrado"
+
+    def get_authorization_time(self):
+        if self.authorization_time:
+            return self.authorization_time
+
+        return "Visitante aguardando autorização"
+
+    def get_responsible_resident(self):
+        if self.responsible_resident:
+            return self.responsible_resident
+
+        return "Visitante aguardando autorização"
+
+    def get_vehicle_plate(self):
+        if self.vehicle_plate:
+            return self.vehicle_plate
+
+        return "Veiculo não registrado"
+
+    def get_cpf(self):
+        if self.cpf:
+            cpf = self.cpf
+
+            cpf_primeira = cpf[0:3]
+            cpf_segunda = cpf[3:6]
+            cpf_terceira = cpf[6:9]
+            cpf_quarta = cpf[9:]
+
+            return f'{cpf_primeira}.{cpf_segunda}.{cpf_terceira}-{cpf_quarta}'
 
     class Meta:
         verbose_name = _("Visitante")

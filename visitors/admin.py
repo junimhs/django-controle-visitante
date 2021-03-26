@@ -5,4 +5,4 @@ from visitors.models import Visitor
 
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name', 'cpf', 'status']
